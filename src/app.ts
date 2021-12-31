@@ -3,8 +3,6 @@ import puppeteer from 'puppeteer'
 import { OptionsModel, XPaths } from '@models'
 import { WhatsAppService } from '@services'
 
-import { postData } from '@helpers'
-
 export default async function app(options: OptionsModel) {
   const {
     USER_DATA_DIR,
@@ -57,12 +55,6 @@ export default async function app(options: OptionsModel) {
       const timestamp = date.toLocaleTimeString()
       if (whatsappService.hasStatusChanged(status)) {
         whatsappService.updateStatus(status)
-
-        await postData({
-          status,
-          timestamp,
-        })
-
         console.log(`[${timestamp}]: ${status}, timesOnline: ${whatsappService.getTimesOnline()}`)
       }
     } catch (err) {}
